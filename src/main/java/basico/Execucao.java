@@ -1,13 +1,15 @@
 package basico;
 
 import basico.banco.Banco;
+import basico.exception.ContaIneException;
+import basico.exception.SaldoInvalidoException;
 import java.util.Scanner;
 
 public class Execucao {
 
 	static Scanner s  = new Scanner(System.in);
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SaldoInvalidoException, ContaIneException {
 		Banco b = new Banco();
 		int escolha, numConta;
 		float valor;
@@ -54,8 +56,14 @@ public class Execucao {
 					numConta = s.nextInt();
 					System.out.println("digite o valor");
 					valor = s.nextFloat();
-					boolean saqueRealizado = b.sacar(numConta, valor);
-					System.out.println("Saque realizado: " + saqueRealizado);
+					try{
+						boolean saqueRealizado = b.sacar(numConta, valor);
+						System.out.println("Saque realizado: " + saqueRealizado);
+					}catch (SaldoInvalidoException saldoInvalidoException){
+						System.out.println(saldoInvalidoException.getMessage());
+					}finally {
+						System.out.println("Uma operação foi realizada");
+					}
 					break;
 				}
 				case 6: {

@@ -4,6 +4,8 @@ import basico.ContaBonificada;
 import basico.ContaGeral;
 import basico.ContaPG;
 import basico.Poupanca;
+import basico.exception.ContaIneException;
+import basico.exception.SaldoInvalidoException;
 import java.util.ArrayList;
 
 public class Banco implements BancoInterface{
@@ -37,17 +39,17 @@ public class Banco implements BancoInterface{
 		return true;
 	}
 	
-	public boolean depositar(int numero, float valor) {
+	public boolean depositar(int numero, float valor) throws ContaIneException {
 		for(ContaGeral conta: this.contas){
 			if (conta.getNumero() == numero){
 				conta.depositar(valor);
 				return true;
 			}
 		}
-		return false;
+		throw new ContaIneException();
 	}
 	
-	public boolean sacar(int numero, float valor) {
+	public boolean sacar(int numero, float valor) throws SaldoInvalidoException {
 		for(ContaGeral conta: this.contas){
 			if (conta.getNumero() == numero){
 				return conta.sacar(valor);

@@ -1,5 +1,7 @@
 package basico;
 
+import basico.exception.SaldoInvalidoException;
+
 public abstract class ContaGeral {
 
 	protected int numero;
@@ -10,7 +12,7 @@ public abstract class ContaGeral {
 		this.saldo = 0;
 	}
 
-	public abstract boolean sacar(float valor);
+	public abstract boolean sacar(float valor) throws SaldoInvalidoException;
 
 	public abstract void depositar(float valor);
 
